@@ -16,6 +16,7 @@ namespace GildarGaming.LD42
         [SerializeField]
         float startingForce;
         public ScoreUpdateEvent scoreUpdate;
+        public Vector3 cameraPos;
 
         public static GameManager Instance
         {
@@ -64,6 +65,7 @@ namespace GildarGaming.LD42
         }
         void Start()
         {
+            cameraPos = Camera.main.transform.position;
             if (ballRb == null)
             {
                 ballRb = GameObject.FindWithTag("Ball").GetComponent<Rigidbody>();
@@ -104,8 +106,10 @@ namespace GildarGaming.LD42
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                if (UIManager.Instance.MenuPanel.activeInHierarchy || UIManager.Instance.GameOverPanel.activeInHierarchy) return;
                 if (ballRb.isKinematic == false) return;
                 ballRb.gameObject.transform.parent = null;
+                UIManager.Instance.InstructionText.gameObject.SetActive(false);
                 ballRb.isKinematic = false;
                 ballRb.AddForce(new Vector3(0.0f, startingForce, 0.0f));
             }

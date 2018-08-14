@@ -16,6 +16,9 @@ namespace GildarGaming.LD42
         public GameObject bombPrefab;
         public List<GameObject> brickPrefabs;
         public GameObject bombExplosion;
+        GameObject ball;
+        Rigidbody ballRb;
+
         public List<GameObject> activeBricks;
         public static SpawnManager Instance
         {
@@ -52,6 +55,7 @@ namespace GildarGaming.LD42
 
         void Start()
         {
+            ball = GameObject.FindWithTag("Ball");
             PoolManager.Instance.CreatePool(bombExplosion, 50, PoolType.StackPool, null);
             PoolManager.Instance.CreatePool(bombPrefab, 20, PoolType.StackPool, null);
             Grid = new GameGrid(gridSizeX, gridSizeY);
@@ -151,6 +155,23 @@ namespace GildarGaming.LD42
 
         }
 
+        void FixedUpdate()
+        {
+            if (ballRb == null)
+            {
+                ballRb = ball.GetComponent<Rigidbody>();
+
+            }
+            if (ballRb.velocity.magnitude > 100.0f)
+            {
+                ballRb.velocity = ballRb.velocity.normalized * 100f;
+            }
+            else if (ballRb.velocity.magnitude < 20.0f)
+            {
+                ballRb.velocity = ballRb.velocity.normalized * 20f;
+            }
+            
+        }
         void Update()
         {
             for (int i = 0; i < brickMaterialList.Count; i++)

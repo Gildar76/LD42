@@ -14,6 +14,8 @@ namespace GildarGaming.LD42
         [SerializeField]
         private TextMeshProUGUI scoreText;
         [SerializeField]
+        private TextMeshProUGUI instructionText;
+        [SerializeField]
         GameObject gameOverPanel;
         [SerializeField]
         Slider volumeSlider;
@@ -56,6 +58,17 @@ namespace GildarGaming.LD42
             }
         }
 
+        public TextMeshProUGUI InstructionText
+        {
+            get
+            {
+                return instructionText;
+            } set
+            {
+                instructionText = value;
+            }
+        }
+
         void Start()
         {
             instance = this;
@@ -86,7 +99,7 @@ namespace GildarGaming.LD42
 
         public void OnStartClick()
         {
-            
+            instructionText.gameObject.SetActive(true);
             GameManager.Instance.Restart();
             MenuPanel.SetActive(false);
         }

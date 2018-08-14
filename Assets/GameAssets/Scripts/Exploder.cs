@@ -22,7 +22,7 @@ namespace GildarGaming.LD42
         void Start()
         {
 
-            cameraOriginalPosition = Camera.main.transform.position;
+            cameraOriginalPosition = GameManager.Instance.cameraPos;
             mainCamera = Camera.main;
             minPos = new Vector3(cameraOriginalPosition.x - cameraMaxOffset, cameraOriginalPosition.y - cameraMaxOffset, cameraOriginalPosition.z);
 
